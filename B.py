@@ -134,13 +134,13 @@ data = {
 }
 
 
-res = session.post("https://www.instagram.com/api/v1/live/create/", params={'hl': 'en'}, data=data)
-p6 = res.json()
-print(p6)
-broadcastid = p6['broadcast_id']
-upload_url = p6['upload_url']
-print(upload_url)
-print(broadcastid)
+#res = session.post("https://www.instagram.com/api/v1/live/create/", params={'hl': 'en'}, data=data)
+#p6 = res.json()
+#print(p6)
+#broadcastid = p6['broadcast_id']
+#upload_url = p6['upload_url']
+#print(upload_url)
+#print(broadcastid)
 
 
 
@@ -148,11 +148,11 @@ print(broadcastid)
 
 #dat ={'should_send_notifications': 1}
 
-rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/", data={'should_send_notifications': 1})
+#rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/", data={'should_send_notifications': 1})
 
 
 
-os.system(f"ffmpeg -probesize 22000 -analyzeduration 10000 -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1,setpts=0\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://a.rtmp.youtube.com/live2/qtaa-xx6x-h99h-hjtp-1wf1")
+os.system(f"ffmpeg -probesize 22000 -analyzeduration 10000 -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1,setpts=0\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
 
 
 
