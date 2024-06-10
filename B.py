@@ -40,7 +40,7 @@ json_data = {
             'utcOffsetMinutes': 0,
         },
     },
-    'videoId': 'eyf_m0zh5tQ',
+    'videoId': 'G3QPzkllFSk',
     'playbackContext': {
         'contentPlaybackContext': {
             'html5Preference': 'HTML5_PREF_WANTS',
@@ -152,7 +152,7 @@ rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/",
 
 
 
-#os.system(f"ffmpeg -probesize 200 -analyzeduration 100 -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1,setpts=0\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://a.rtmp.youtube.com/live2/qtaa-xx6x-h99h-hjtp-1wf1")
+os.system(f"ffmpeg -probesize 22000 -analyzeduration 10000 -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1,setpts=0\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://a.rtmp.youtube.com/live2/qtaa-xx6x-h99h-hjtp-1wf1")
 
 
 
@@ -163,4 +163,4 @@ rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/",
 #os.system(f"ffmpeg -hwaccel auto -re -i '{pr}' -vf transpose=1 -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
 
 
-os.system(f"ffmpeg -hwaccel auto -re -i '{pr}' -aspect 720:1280 -vcodec copy -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
+#os.system(f"ffmpeg -re -i '{pr}' -aspect 720:1280 -vcodec copy -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
