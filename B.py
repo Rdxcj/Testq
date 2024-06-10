@@ -152,7 +152,7 @@ data = {
 
 
 
-os.system(f"ffmpeg -probesize 22000 -analyzeduration 10000 -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1,setpts=0\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
+os.system(f"ffmpeg -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1\" -tune zerolatency -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -g 60 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
 
 
 
