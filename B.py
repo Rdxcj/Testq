@@ -160,4 +160,7 @@ rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/",
 
 #os.system(f"ffmpeg -re -i '{pr}' -vf \"transpose=1,transpose=1,transpose=1,transpose=1\" -threads 4 -map 0:p:6 -b:v 8000k -acodec copy -preset ultrafast -tune zero_latency -f flv rtmp://a.rtmp.youtube.com/live2/qtaa-xx6x-h99h-hjtp-1wf1 -vcodec copy -acodec copy -f flv '{upload_url}'")
 
-os.system(f"ffmpeg -hwaccel auto -re -i '{pr}' -vf transpose=1 -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
+#os.system(f"ffmpeg -hwaccel auto -re -i '{pr}' -vf transpose=1 -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
+
+
+os.system(f"ffmpeg -hwaccel auto -re -i '{pr}' -aspect 720:1280 -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
