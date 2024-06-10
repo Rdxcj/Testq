@@ -14,9 +14,19 @@ jobs:
            DEBIAN_FRONTEND=noninteractive sudo apt-get -y install tzdata apt-utils
            sudo apt-get install -y ffmpeg python3 python3-pip wget
            sudo pip3 install requests
-           wget https://raw.githubusercontent.com/Cjxsqa/Test5/main/cookies.json
-           wget https://raw.githubusercontent.com/Cjxsqa/Test5/main/B.py
-           sudo python3 B.py
+           sudo ffmpeg -hwaccels
+
+
+
+
+
+
+
+
+
+#           wget https://raw.githubusercontent.com/Cjxsqa/Test5/main/cookies.json
+#           wget https://raw.githubusercontent.com/Cjxsqa/Test5/main/B.py
+#           sudo python3 B.py
 
 
 
