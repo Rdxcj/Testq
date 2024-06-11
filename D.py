@@ -159,7 +159,7 @@ rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/",
 #os.system(f"ffmpeg -f mpegts -i udp://0.0.0.0:6767 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -f flv '{upload_url}'")
 
 
-os.system(f"ffmpeg -re -i '{pr}' -vf transpose=1 -c:a copy -tune zerolatency -f mpegts -muxrate 7999900 \"udp://127.0.0.1:47333&bitrate=2000000&overrun_nonfatal=1&fifo_size=262140&buffer_size=262140\" | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -f flv '{upload_url}'")
+os.system(f"ffmpeg -re -i '{pr}' -map 0:p:5 -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 5099900 udp://127.0.0.1:47333 | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
 
 
 
