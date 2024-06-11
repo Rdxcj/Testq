@@ -1,3 +1,4 @@
+
 import requests
 import re
 import json
@@ -40,7 +41,7 @@ json_data = {
             'utcOffsetMinutes': 0,
         },
     },
-    'videoId': 'G3QPzkllFSk',
+    'videoId': 'lDIkFUYGGFM',
     'playbackContext': {
         'contentPlaybackContext': {
             'html5Preference': 'HTML5_PREF_WANTS',
@@ -134,13 +135,13 @@ data = {
 }
 
 
-#res = session.post("https://www.instagram.com/api/v1/live/create/", params={'hl': 'en'}, data=data)
-#p6 = res.json()
-#print(p6)
-#broadcastid = p6['broadcast_id']
-#upload_url = p6['upload_url']
-#print(upload_url)
-#print(broadcastid)
+res = session.post("https://www.instagram.com/api/v1/live/create/", params={'hl': 'en'}, data=data)
+p6 = res.json()
+print(p6)
+broadcastid = p6['broadcast_id']
+upload_url = p6['upload_url']
+print(upload_url)
+print(broadcastid)
 
 
 
@@ -148,11 +149,25 @@ data = {
 
 #dat ={'should_send_notifications': 1}
 
-#rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/", data={'should_send_notifications': 1})
+rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/", data={'should_send_notifications': 1})
 
 
 
-os.system(f"ffmpeg -re -i '{pr}' -tune zerolatency -threads 4 -map 0:p:6 -vcodec copy -acodec copy -g 2 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
+#os.system(f"ffmpeg -re -i '{pr}' -tune zerolatency -threads 4 -map 0:p:6 -vcodec copy -acodec copy -g 2 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
+
+
+#os.system(f"ffmpeg -f mpegts -i udp://0.0.0.0:6767 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -f flv '{upload_url}'")
+
+
+os.system(f"ffmpeg -re -i '{pr}' -vf transpose=1 -c:a copy -tune zerolatency -f mpegts -muxrate 7999900 \"udp://127.0.0.1:47333&bitrate=2000000&overrun_nonfatal=1&fifo_size=262140&buffer_size=262140\" | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -f flv '{upload_url}'")
+
+
+
+
+
+
+
+
 
 
 
