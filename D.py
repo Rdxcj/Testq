@@ -159,7 +159,45 @@ rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/",
 #os.system(f"ffmpeg -f mpegts -i udp://0.0.0.0:6767 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -f flv '{upload_url}'")
 
 
-os.system(f"ffmpeg -http_persistent 0 -re -i '{pr}' -map 0:p:4 -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 2599900 udp://127.0.0.1:47333 | ffmpeg -http_persistent 0 -f mpegts -i udp://127.0.0.1:47333 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
+
+import requests
+
+headers = {
+    'sec-ch-ua': '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
+    'sec-ch-ua-platform': '"Android"',
+    'dnt': '1',
+    'sec-ch-ua-mobile': '?1',
+    'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36',
+    'content-type': 'application/json',
+    'accept': '*/*',
+    'origin': 'https://dlive.tv',
+    'sec-fetch-site': 'same-site',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-dest': 'empty',
+    'referer': 'https://dlive.tv/',
+    'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7',
+    'priority': 'u=1, i',
+}
+
+json_data = {
+    'playlisturi': 'https://livestreamc.prdv3.dlivecdn.com/unitynews/1718128583/src/live.m3u8',
+}
+
+response44 = requests.post('https://live.prd.dlive.tv/hls/sign/url', headers=headers, json=json_data)
+
+# Note: json_data will not be serialized by requests
+# exactly as it was in the original request.
+#data = '{"playlisturi":"https://livestreamc.prdv3.dlivecdn.com/unitynews/1718128583/src/live.m3u8"}'
+#response = requests.post('https://live.prd.dlive.tv/hls/sign/url', headers=headers, data=data)
+
+
+
+
+
+
+
+
+os.system(f"ffmpeg -http_persistent 0 -re -i '{response44.text}' -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 2599900 udp://127.0.0.1:47333 | ffmpeg -http_persistent 0 -f mpegts -i udp://127.0.0.1:47333 -loglevel debug -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
 
 
 
