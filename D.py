@@ -58,8 +58,8 @@ response = requests.post(
     json=json_data,
 )
 
-pr = json.loads(response.text)["streamingData"]["hlsManifestUrl"]
-print(pr)
+#pr = json.loads(response.text)["streamingData"]["hlsManifestUrl"]
+#print(pr)
 
 from pathlib import Path
 import json
