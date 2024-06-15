@@ -192,7 +192,7 @@ json_data = {
 #response = requests.post('https://live.prd.dlive.tv/hls/sign/url', headers=headers, data=data)
 
 
-os.system("ffmpeg -headers $'User-Agent: Mozilla/5.0 (Android; vivo V2311) Android/14 version/1.17.74\r\nHost: livestreamc.prdv3.dlivecdn.com\r\nConnection: Keep-Alive\r\nAccept-Encoding: identity\r\nReferer: https://dlive.tv/\r\n' -re -i 'https://livestreamc.prdv3.dlivecdn.com/dlive-knfgmgrycm/1718467298/src/live.m3u8' -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 7599900 udp://127.0.0.1:47333 | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
+os.system("ffmpeg -headers $'User-Agent: Mozilla/5.0 (Android; vivo V2311) Android/14 version/1.17.74\r\nHost: livestreamc.prdv3.dlivecdn.com\r\nConnection: Keep-Alive\r\nAccept-Encoding: identity\r\nReferer: https://dlive.tv/\r\n' -re -i 'https://livestreamc.prdv3.dlivecdn.com/dlive-knfgmgrycm/1718467298/720p/live.m3u8' -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 7599900 udp://127.0.0.1:47333 | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
 
 
 
