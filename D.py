@@ -41,7 +41,7 @@ json_data = {
             'utcOffsetMinutes': 0,
         },
     },
-    'videoId': 'lDIkFUYGGFM',
+    'videoId': 'Bo6NF3-cq_I',
     'playbackContext': {
         'contentPlaybackContext': {
             'html5Preference': 'HTML5_PREF_WANTS',
@@ -58,7 +58,7 @@ response = requests.post(
     json=json_data,
 )
 
-#pr = json.loads(response.text)["streamingData"]["hlsManifestUrl"]
+pr = json.loads(response.text)["streamingData"]["hlsManifestUrl"]
 #print(pr)
 
 from pathlib import Path
@@ -69,7 +69,10 @@ session = requests.session()
 #path = Path("cookies.json")
 #Cookies = json.loads(path.read_bytes())
 #Cookies = {'csrftoken': '1DuErYaNsJbg4uJN5YmM6iXDXDfU5BTs', 'rur': '"EAG\\0546049028904\\0541748757227:01f7405bc3fa8afb7689aa9c87ca5b498437097de75168fa1da6ee3edc93f15a1107e3f0"', 'mid': 'Zlq3ZgALAAE3E4MskrxsJfcU7-yi', 'ds_user_id': '6049028904', 'ig_did': '14168AAB-5780-41FA-80F0-BA4F22686941', 'sessionid': '6049028904%3AxATX5Nq7jp4tI1%3A10%3AAYcy5I6b1RnJ9Vwj9VL3QiKYgt8NrYxOcEaVGPPd7A'}
-Cookies = {'csrftoken': 'hD60PUDcPudwdXJfCrLDizAhwvFnM6fy', 'rur': '"LDC\\05451941737982\\0541749362678:01f7bec08838ecd8377b00be80c84aa81f940ec9702f26bf7dea236f64c4f5d207eae087"', 'mid': 'ZmP0cwALAAEaLxU78y0py1K_CUDL', 'ds_user_id': '51941737982', 'ig_did': 'C01E64D7-0957-4F3E-B597-66EA7FD754E1', 'sessionid': '51941737982%3AuuSYrABkxAAqLf%3A21%3AAYf4eoCJOvh8BfDgBCvABtlWv3K5b31ctAzdMKSmrw'}
+Cookies = {'csrftoken': 'jV2ZJv6zdmIOA2pXGl5dv9Upmd57gVe5', 'rur': '"CCO\\05451941737982\\0541751821562:01f785ef80e85d2767ffef3b27a89dd287eb5709861d683e408bbe998c82835d9ba3d6a8"', 'mid': 'Zol5dwALAAHjbg41JoUG6CYX74K0', 'ds_user_id': '51941737982', 'ig_did': 'D3ADD960-C5E1-4054-9147-BBA1D67EF6DB', 'sessionid': '51941737982%3ANXXMl0BAgoeTyZ%3A16%3AAYfSwsnStPaWjs3euzZNx3ZMh--livddKpbI8g95Fw'}
+
+
+#{'csrftoken': 'hD60PUDcPudwdXJfCrLDizAhwvFnM6fy', 'rur': '"LDC\\05451941737982\\0541749362678:01f7bec08838ecd8377b00be80c84aa81f940ec9702f26bf7dea236f64c4f5d207eae087"', 'mid': 'ZmP0cwALAAEaLxU78y0py1K_CUDL', 'ds_user_id': '51941737982', 'ig_did': 'C01E64D7-0957-4F3E-B597-66EA7FD754E1', 'sessionid': '51941737982%3AuuSYrABkxAAqLf%3A21%3AAYf4eoCJOvh8BfDgBCvABtlWv3K5b31ctAzdMKSmrw'}
 
 csrf = Cookies["csrftoken"]
 id = Cookies["ds_user_id"]
@@ -123,7 +126,7 @@ session.headers = headers
 #response = session.get('https://www.instagram.com/api/v1/live/web_info/', params=params)
 #print(response.text)
 data = {
-    'broadcast_message': 'Test5',
+    'broadcast_message': 'Test7',
     'internal_only': 'false',
 #    'preview_height': '720',
 #    'preview_width': '1080',
@@ -152,6 +155,7 @@ print(broadcastid)
 rr = session.post(f"https://www.instagram.com/api/v1/live/{broadcastid}/start/", data={'should_send_notifications': 1})
 
 
+os.system(f"ffmpeg -re -i '{pr}' -vf transpose=1 -threads 8 -map 0:p:5 -acodec copy -preset ultrafast -tune zero_latency -f flv '{upload_url}'")
 
 #os.system(f"ffmpeg -re -i '{pr}' -tune zerolatency -threads 4 -map 0:p:6 -vcodec copy -acodec copy -g 2 -f flv rtmp://live.restream.io/live/re_8059671_9e558d240806196dfcf2")
 
@@ -192,7 +196,7 @@ json_data = {
 #response = requests.post('https://live.prd.dlive.tv/hls/sign/url', headers=headers, data=data)
 
 
-os.system("ffmpeg -headers $'User-Agent: Mozilla/5.0 (Android; vivo V2311) Android/14 version/1.17.74\r\nHost: livestreamc.prdv3.dlivecdn.com\r\nConnection: Keep-Alive\r\nAccept-Encoding: identity\r\nReferer: https://dlive.tv/\r\n' -re -i 'https://livestreamc.prdv3.dlivecdn.com/dlive-knfgmgrycm/1718467298/720p/live.m3u8' -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 7599900 udp://127.0.0.1:47333 | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
+#os.system("ffmpeg -headers $'User-Agent: Mozilla/5.0 (Android; vivo V2311) Android/14 version/1.17.74\r\nHost: livestreamc.prdv3.dlivecdn.com\r\nConnection: Keep-Alive\r\nAccept-Encoding: identity\r\nReferer: https://dlive.tv/\r\n' -re -i 'https://livestreamc.prdv3.dlivecdn.com/dlive-knfgmgrycm/1718467298/720p/live.m3u8' -vf transpose=1 -c:a copy -preset ultrafast -tune zerolatency -f mpegts -muxrate 7599900 udp://127.0.0.1:47333 | ffmpeg -f mpegts -i udp://127.0.0.1:47333 -vcodec libx264 -acodec copy -preset ultrafast -tune zerolatency -f flv '{upload_url}'")
 
 
 
